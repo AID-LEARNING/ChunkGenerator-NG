@@ -8,6 +8,7 @@ use Generator;
 use Logger;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
+use pocketmine\math\Vector3;
 use pocketmine\plugin\PluginBase;
 use pocketmine\world\format\Chunk;
 use pocketmine\world\World;
@@ -40,7 +41,8 @@ final class Loader extends PluginBase{
 			}else{
 				$logger->info("Failed to populate chunk({$x}, {$z}) (" . round(($populated / $populating) * 100, 2) . "% chunks populated)");
 			}
-			if($populated === $populating){
+            $world->unloadChunk($x, $z);
+            if($populated === $populating){
 				$this->generateChunksA($world, $logger, $coordinate_generator, $buffer_size, $iterations, $iterated, $populated, $populating);
 			}
 		};
@@ -101,6 +103,7 @@ final class Loader extends PluginBase{
 			}
 		}
 
+        Vector3::
 		if(count($int_args) < 4){
 			return false;
 		}
